@@ -1,0 +1,36 @@
+### Aim: To reverse a specific portion of a singly linked list between given positions left and right while keeping the rest of the list unchanged.
+
+### Objective: 
+To understand how to reverse a sublist within a linked list efficiently.
+To modify linked list pointers to achieve the reversal in a specific range.
+To ensure the algorithm runs optimally with minimal time and space complexity.
+To enhance problem-solving skills in linked list manipulation and pointer adjustments.
+
+### Code:
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if (!head || left == right) {
+            return head;
+        }
+
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* prev = dummy;
+
+        for (int i = 0; i < left - 1; i++) {
+            prev = prev->next;
+        }
+
+        ListNode* cur = prev->next;
+
+        for (int i = 0; i < right - left; i++) {
+            ListNode* temp = cur->next;
+            cur->next = temp->next;
+            temp->next = prev->next;
+            prev->next = temp;
+        }
+
+        return dummy->next;        
+    }
+};
